@@ -1,0 +1,18 @@
+name: Run_CI
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+jobs:
+  build:
+    name: "Run test"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Checkout
+        run: |
+          cd ${{ github.workspace }}
+          ls
+          $shfile = "${{ github.workspace }}/uup_file/uup_download_linux.sh"
+          bash $shfile
+

@@ -12,7 +12,6 @@ jobs:
       - name: Checkout
         run: |
           cd ${{ github.workspace }}
-          ls
           $shfile = "${{ github.workspace }}/uup_file/uup_download_linux.sh"
           bash $shfile
 

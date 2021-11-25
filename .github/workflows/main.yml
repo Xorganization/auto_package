@@ -6,7 +6,7 @@ on:
 jobs:
   build:
     name: "Run test"
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - uses: actions/checkout@v2
       - name: Checkout
@@ -14,4 +14,3 @@ jobs:
           cd ${{ github.workspace }}
           $shfile = "${{ github.workspace }}/uup_file/uup_download_linux.sh"
           bash $shfile
-

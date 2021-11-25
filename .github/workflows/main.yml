@@ -11,6 +11,5 @@ jobs:
       - uses: actions/checkout@v2
       - name: Checkout
         run: |
-          cd ${{ github.workspace }}
           $shfile = "/uup_file/uup_download_windows.cmd"
-          ./$shfile
+          .\$shfile

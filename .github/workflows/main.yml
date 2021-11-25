@@ -11,4 +11,4 @@ jobs:
       - uses: actions/checkout@v2
       - name: Checkout
         run: |
-          powershell.exe uup_download_windows.cmd
+          powershell.exe ${{ github.workspace }}/uup_download_windows.cmd

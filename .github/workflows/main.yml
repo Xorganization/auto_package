@@ -12,5 +12,5 @@ jobs:
       - name: Checkout
         run: |
           cd ${{ github.workspace }}
-          $shfile = "${{ github.workspace }}/uup_file/uup_download_linux.sh"
+          $shfile = "${{ github.workspace }}/uup_file/uup_download_windows.cmd"
           bash $shfile

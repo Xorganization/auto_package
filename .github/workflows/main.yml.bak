@@ -27,6 +27,9 @@ jobs:
         with:
           submodules: 'recursive'
           fetch-depth: 0
+          
+      - name: Bulid
+        run: powershell.exe .\uup_download_windows.cmd
 
       - name: Upload build artifact
         if: runner.os == 'windows'

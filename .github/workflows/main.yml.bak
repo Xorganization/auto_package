@@ -1,28 +1,14 @@
+name: Run_CI
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
 jobs:
   build:
-    name: Build on windows
+    name: "Run test"
     runs-on: self-hosted
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [ windows-latest ]
-    env:
-      NDK_CCACHE: ${{ github.workspace }}/ccache
-      CCACHE_DIR: ${{ github.workspace }}/.ccache
-
     steps:
-      - name: Check out
-        uses: actions/checkout@v2
-        with:
-          submodules: 'recursive'
-          fetch-depth: 0
-          
-      - name: Bulid
-        run: powershell.exe .\uup_download_windows.cmd
-
-      - name: Upload build artifact
-        if: runner.os == 'windows'
-        uses: actions/upload-artifact@v2
-        with:
-          name: ${{ github.sha }}
-          path: out
+      - uses: actions/checkout@v2
+      - name: Checkout
+        run: |
+          powershell.exe .\uup_download_windows.cmd

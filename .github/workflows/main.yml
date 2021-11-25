@@ -1,15 +1,39 @@
-name: Run_CI
+name: Magisk Build
+
 on:
   push:
+    branches: [ master ]
+    paths:
+      - 'files/**'
+  pull_request:
     branches: [ main ]
   workflow_dispatch:
+
 jobs:
   build:
-    name: "Run test"
+    name: Build on windows
     runs-on: self-hosted
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ windows-latest ]
+    env:
+      NDK_CCACHE: ${{ github.workspace }}/ccache
+      CCACHE_DIR: ${{ github.workspace }}/.ccache
+
     steps:
-      - uses: actions/checkout@v2
-      - name: Checkout
-        run: |
-          git https://github.com/Biaogo/auto_package.git
-          .\auto_package\uup_download_windows.cmd
+      - name: Check out
+        uses: actions/checkout@v2
+        with:
+          submodules: 'recursive'
+          fetch-depth: 0
+          
+      - name: Bulid
+        run: powershell.exe .\uup_download_windows.cmd
+
+      - name: Upload build artifact
+        if: runner.os == 'windows'
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{ github.sha }}
+          path: out

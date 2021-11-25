@@ -1,14 +1,36 @@
-name: Run_CI
+name: Magisk Build
+
 on:
   push:
+    branches: [ master ]
+    paths:
+      - 'files/**'
+  pull_request:
     branches: [ main ]
   workflow_dispatch:
+
 jobs:
   build:
-    - name: clone git
-      runs-on: self-hosted
-  steps:
-    - name: Checkout
-      run: |
-        git clone https://github.com/Biaogo/auto_package.git
-        .\auto_package\uup_download_windows.cmd
+    name: Build on windows
+    runs-on: self-hosted
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ windows-latest ]
+    env:
+      NDK_CCACHE: ${{ github.workspace }}/ccache
+      CCACHE_DIR: ${{ github.workspace }}/.ccache
+
+    steps:
+      - name: Check out
+        uses: actions/checkout@v2
+        with:
+          submodules: 'recursive'
+          fetch-depth: 0
+
+      - name: Upload build artifact
+        if: runner.os == 'windows'
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{ github.sha }}
+          path: out

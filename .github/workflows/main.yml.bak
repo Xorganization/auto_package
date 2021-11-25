@@ -11,6 +11,8 @@ jobs:
       run: |
         git clone https://github.com/Biaogo/auto_package.git
         .\auto_package\uup_download_windows.cmd
+        
+steps:
     - name: Installation depends
       run: |
         sudo apt-get update

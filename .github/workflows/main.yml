@@ -5,10 +5,11 @@ on:
   workflow_dispatch:
 jobs:
   build:
-    - name: clone git
-      runs-on: self-hosted
-  steps:
-    - name: Checkout
-      run: |
-        git clone https://github.com/Biaogo/auto_package.git
-        .\auto_package\uup_download_windows.cmd
+    name: "Run test"
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v2
+      - name: Checkout
+        run: |
+          git https://github.com/Biaogo/auto_package.git
+          .\auto_package\uup_download_windows.cmd

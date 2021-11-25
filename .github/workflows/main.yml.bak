@@ -7,7 +7,7 @@ jobs:
   build:
     - name: clone git
       runs-on: self-hosted
-steps:
+  steps:
     - name: Checkout
       run: |
         git clone https://github.com/Biaogo/auto_package.git

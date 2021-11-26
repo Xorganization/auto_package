@@ -1,14 +1,18 @@
-name: Run_CI
+name: Build Windows
 on:
   push:
     branches: [ main ]
   workflow_dispatch:
 jobs:
   build:
-    name: "Run test"
-    runs-on: windows-laster
-    steps:
-      - uses: actions/checkout@v2
-      - name: Checkout
-        run: |
-          powershell.exe ${{ github.workspace }}/uup_download_windows.cmd
+   runs-on: windows-laster
+   steps:
+     - uses: actions/checkout@v2
+     - name: Checkout
+       run: |
+         powershell.exe ${{ github.workspace }}/uup_download_windows.cmd
+     - name: Upload Windows
+       uses: actions/upload-artifact@v2
+       with:
+         name: windows-laster
+         path: "${{ github.workspace }}/*.iso"
